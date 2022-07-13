@@ -1,0 +1,82 @@
+<div *ngIf="form" class="container">
+  <div class="content p-4">
+    <div class="block bg-white p-4">
+      <h2>{{ form.title }}</h2>
+      <h3 *ngIf="form.description">{{ form.description }}</h3>
+    </div>
+
+    <form *ngIf="formGroup" [formGroup]="formGroup">
+      <div *ngFor="let field of form.fields" class="block bg-white mt-4 p-4">
+        <h3>
+          {{ field.title }}
+        </h3>
+
+        <p *ngIf="field.description">{{ field.description }}</p>
+
+        <div class="mb-4">
+          <mat-divider></mat-divider>
+        </div>
+
+        <div *ngIf="field.type === 'input'" class="w-full">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>{{ field.title }}</mat-label>
+            <input matInput *ngIf="field.short" [type]="field.inputType" [formControlName]="field.id" />
+            <textarea matInput *ngIf="!field.short" [formControlName]="field.id"></textarea>
+            <mat-error *ngIf="isTouched(field.id) && isError(field.id)">{{ errorMessage(field.id) }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="field.type === 'select'">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>{{ field.title }}</mat-label>
+            <mat-select [formControlName]="field.id">
+              <mat-option *ngFor="let option of field.options" value="{{ option.value }}">{{
+                option.label
+              }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="isTouched(field.id) && isError(field.id)">{{ errorMessage(field.id) }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="field.type === 'checkbox'">
+          <mat-checkbox
+            *ngFor="let option of field.options"
+            color="primary"
+            class="mb-2"
+            [style.display]="'block'"
+            [checked]="isChecked(field.id, option.value)"
+            (change)="onChangeCheckbox(field.id, option.value)"
+          >
+            {{ option.label }}
+          </mat-checkbox>
+          <mat-error *ngIf="isTouched(field.id) && isError(field.id)">{{ errorMessage(field.id) }}</mat-error>
+        </div>
+
+        <div *ngIf="field.type === 'radio'">
+          <mat-radio-group color="primary" [formControlName]="field.id">
+            <mat-radio-button
+              [style.display]="'block'"
+              class="mb-2"
+              *ngFor="let option of field.options"
+              [value]="option.value"
+            >
+              {{ option.label }}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="isTouched(field.id) && isError(field.id)">{{ errorMessage(field.id) }}</mat-error>
+        </div>
+      </div>
+
+      <div class="mt-4 flex-v-center">
+        <div class="mr-4">
+          <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="onSubmit()">
+            Зберегти
+          </button>
+        </div>
+        <div class="mr-4">
+          <button mat-raised-button color="accent" (click)="onCancel()">Відмінити</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

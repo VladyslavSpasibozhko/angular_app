@@ -1,0 +1,13 @@
+.field {
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__footer {
+  }
+}

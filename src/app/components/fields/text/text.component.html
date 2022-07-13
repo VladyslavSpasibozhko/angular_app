@@ -1,0 +1,63 @@
+<div class="text__header flex-between w-full">
+  <div>
+    <mat-slide-toggle color="primary" [checked]="field.short" (change)="onToggle($event)">
+      Коротке відповідь
+    </mat-slide-toggle>
+
+    <div class="mt-4">
+      <h3 class="text-secondary" *ngIf="field.short">Запитання з короткою відповіддю</h3>
+      <h3 class="text-secondary" *ngIf="!field.short">Запитання з довгою відповіддю</h3>
+    </div>
+  </div>
+
+  <div *ngIf="field.short" class="ml-4">
+    <mat-form-field appearance="outline">
+      <mat-label>Тип текстового поля</mat-label>
+      <mat-select [value]="field.inputType" (valueChange)="onChangeInputType($event)">
+        <mat-option *ngFor="let type of inputTypes" value="{{ type }}">{{ type | titlecase }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="mt-2 mb-4">
+  <mat-divider></mat-divider>
+</div>
+
+<div class="flex-v-center">
+  <div class="mr-4">
+    <button
+      mat-stroked-button
+      [color]="descriptionVisible ? 'warn' : 'primary'"
+      (click)="toggleDescription.emit(!descriptionVisible)"
+    >
+      <mat-icon>description</mat-icon>
+      {{ descriptionVisible ? 'Видалити' : 'Додати' }} опис
+    </button>
+  </div>
+
+  <div>
+    <button
+      mat-stroked-button
+      [color]="isValidationVisible ? 'warn' : 'primary'"
+      (click)="onToggleValidation(!isValidationVisible)"
+    >
+      <mat-icon>verified_user</mat-icon>
+      {{ isValidationVisible ? 'Видалити' : 'Додати' }} валідацію
+    </button>
+  </div>
+</div>
+
+<div *ngIf="isValidationVisible">
+  <div class="mt-4 mb-4">
+    <mat-divider></mat-divider>
+  </div>
+  <app-field-validation
+    [type]="field.type"
+    [fields]="field.validation"
+    [keys]="validationKeys"
+    (addField)="onAddValidationField($event)"
+    (removeField)="onRemoveValidationField($event)"
+    (updateField)="onUpdateValidationField($event)"
+  ></app-field-validation>
+</div>

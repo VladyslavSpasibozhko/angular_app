@@ -1,0 +1,16 @@
+<div class="flex-v-center" *ngFor="let item of data; trackBy: trackByKey" [style.height]="'60px'">
+  <mat-checkbox class="mr-4" color="primary" [checked]="!!item.field" (change)="onToggle(item.key)">{{
+    getTitle(item.key)
+  }}</mat-checkbox>
+
+  <div *ngIf="item.field" class="w-full">
+    <app-validation-input
+      *ngIf="type === 'input'"
+      [field]="item.field"
+      (updateField)="onUpdate($event)"
+    ></app-validation-input>
+
+    <app-validation-multi *ngIf="type !== 'input'" [field]="item.field" (updateField)="onUpdate($event)">
+    </app-validation-multi>
+  </div>
+</div>

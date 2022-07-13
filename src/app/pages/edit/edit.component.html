@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="content p-5">
+    <div class="constructor__header bg-white">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Назва форми</mat-label>
+        <input type="text" matInput [(ngModel)]="title" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Опис форми</mat-label>
+        <textarea type="text" matInput [(ngModel)]="description"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="constructor__panel bg-white">
+      <button class="constructor__el" mat-mini-fab color="primary" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button class="constructor__el" mat-mini-fab color="primary" (click)="onSave()">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button class="constructor__el" mat-mini-fab color="primary" (click)="onExit()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+
+    <div class="constructor__fields">
+      <app-field-panel *ngFor="let field of fields" [field]="field"></app-field-panel>
+    </div>
+  </div>
+</div>

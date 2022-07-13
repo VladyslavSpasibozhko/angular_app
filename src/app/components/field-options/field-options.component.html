@@ -1,0 +1,58 @@
+<div class="field__options">
+  <div *ngFor="let option of field.options; let i = index">
+    <ng-template
+      appOption
+      [index]="i"
+      [option]="option"
+      [type]="field.type"
+      [canDelete]="field.options.length !== 1"
+      (remove)="onRemove($event)"
+      (change)="onChange()"
+    ></ng-template>
+  </div>
+
+  <div class="flex">
+    <div class="mr-4">
+      <button mat-stroked-button color="primary" (click)="onAdd()">
+        <mat-icon>add_circle_outline</mat-icon>
+        Додати опцію
+      </button>
+    </div>
+
+    <div class="mr-4">
+      <button
+        mat-stroked-button
+        [color]="descriptionVisible ? 'warn' : 'primary'"
+        (click)="toggleDescription.emit(!descriptionVisible)"
+      >
+        <mat-icon>description</mat-icon>
+        {{ descriptionVisible ? 'Видалити' : 'Додати' }} опис
+      </button>
+    </div>
+
+    <div>
+      <button
+        mat-stroked-button
+        [color]="isValidationVisible ? 'warn' : 'primary'"
+        (click)="onToggleValidation(!isValidationVisible)"
+      >
+        <mat-icon>verified_user</mat-icon>
+        {{ isValidationVisible ? 'Видалити' : 'Додати' }} валідацію
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isValidationVisible">
+    <div class="mt-4 mb-4">
+      <mat-divider></mat-divider>
+    </div>
+    <app-field-validation
+      [type]="field.type"
+      [fields]="field.validation"
+      [keys]="validationKeys"
+      (addField)="onAddValidationField($event)"
+      (removeField)="onRemoveValidationField($event)"
+      (updateField)="onUpdateValidationField($event)"
+    ></app-field-validation>
+  </div>
+</div>

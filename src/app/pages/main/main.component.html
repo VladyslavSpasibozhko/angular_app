@@ -1,0 +1,32 @@
+<div class="p-5">
+  <div class="flex flex-wrap">
+    <div *ngFor="let form of forms" class="card">
+      <mat-card>
+        <mat-card-title>
+          <div class="flex-between">
+            <span class="mt-2">
+              {{ form.title }}
+            </span>
+            <button mat-icon-button class="text-secondary" (click)="onViewForm(form.id)">
+              <mat-icon>launch</mat-icon>
+            </button>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          {{ form.description }}
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <div class="flex-between">
+            <button mat-stroked-button (click)="onEditForm(form.id)">Редагувати</button>
+            <button mat-icon-button color="warn" (click)="onRemove(form.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="onCreate()">Create</button>
+</div>

@@ -1,0 +1,4 @@
+<mat-form-field class="w-full">
+  <mat-label>Повідомлення при помилці</mat-label>
+  <input matInput type="text" [value]="field.message || ''" (input)="onChangeMessage($event)" />
+</mat-form-field>

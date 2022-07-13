@@ -1,0 +1,10 @@
+<div class="flex-v-center">
+  <mat-icon class="mr-4 text-secondary">radio_button_checked</mat-icon>
+  <mat-form-field class="w-75">
+    <input matInput [value]="data.option.label" (change)="onChange($event)" appElement />
+  </mat-form-field>
+
+  <button *ngIf="data.canDelete" mat-icon-button color="warn" (click)="onDelete()">
+    <mat-icon> delete </mat-icon>
+  </button>
+</div>

@@ -1,0 +1,52 @@
+<div class="w-full" appScrollTo>
+  <div class="field bg-white w-full mt-4">
+    <div class="field__header">
+      <mat-form-field appearance="outline" class="mr-4 w-75">
+        <mat-label>Назва поля</mat-label>
+        <input matInput [value]="field.title" (input)="onChangeTitle($event)" />
+      </mat-form-field>
+      <mat-form-field class="w-25" appearance="outline">
+        <mat-label>Тип поля</mat-label>
+        <mat-select [value]="field.type" (valueChange)="onChangeType($event)">
+          <mat-option *ngFor="let type of fieldTypes" [value]="type">{{ type | titlecase }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field *ngIf="isDescriptionVisible" class="w-full" appearance="outline">
+      <mat-label>Опис поля</mat-label>
+      <textarea
+        #description
+        matInput
+        type="text"
+        [value]="field.description"
+        (input)="onChangeDescription(description.value)"
+      ></textarea>
+    </mat-form-field>
+
+    <div class="field__body">
+      <div *ngIf="field.type === 'input'">
+        <app-text
+          [field]="field"
+          [descriptionVisible]="isDescriptionVisible"
+          (toggleDescription)="onToggleDescription($event)"
+        ></app-text>
+      </div>
+      <div *ngIf="field.type !== 'input'">
+        <app-field-options
+          [field]="field"
+          [descriptionVisible]="isDescriptionVisible"
+          (toggleDescription)="onToggleDescription($event)"
+        ></app-field-options>
+      </div>
+    </div>
+
+    <div class="mt-4 mb-4">
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="flex-h-end">
+      <button mat-raised-button color="warn" (click)="onDelete()">Видалити поле</button>
+    </div>
+  </div>
+</div>

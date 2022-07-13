@@ -1,0 +1,10 @@
+<div class="flex-h-center">
+  <div class="mr-2">{{ data.index }}.</div>
+  <mat-form-field appearance="legacy" class="w-75">
+    <input matInput [value]="data.option.label" (change)="onChange($event)" appElement />
+  </mat-form-field>
+
+  <button *ngIf="data.canDelete" mat-icon-button color="warn" (click)="onDelete()">
+    <mat-icon> delete </mat-icon>
+  </button>
+</div>

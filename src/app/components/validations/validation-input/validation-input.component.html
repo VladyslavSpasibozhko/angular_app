@@ -1,0 +1,15 @@
+<div class="flex-v-center w-full">
+  <div *ngIf="singleValue" class="mr-4">
+    <mat-form-field [style.width]="'60px'">
+      <mat-label>{{ getTitle(field.key) }}</mat-label>
+      <input matInput type="number" [value]="field.value" (input)="onChangeValue($event)" />
+    </mat-form-field>
+  </div>
+
+  <div class="w-full">
+    <mat-form-field class="w-full">
+      <mat-label>Повідомлення при помилці</mat-label>
+      <input matInput type="text" [value]="field.message || ''" (input)="onChangeMessage($event)" />
+    </mat-form-field>
+  </div>
+</div>
